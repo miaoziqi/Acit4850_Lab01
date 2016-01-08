@@ -69,7 +69,8 @@ and open the template in the editor.
         echo '<br/>';
         $squares = $position;
         $game = new Game($squares);
-        $game->pick_move();
+        //$game->pick_move();
+        $game->pick_move_random();
         $game->display();
         if ($game->winner('x')) {
             echo 'You win.';
@@ -219,6 +220,18 @@ and open the template in the editor.
                 for ($loc = 0; $loc < 9; $loc++) {
                     if ($this->position[$loc] == '-') {
                         $this->position[$loc] = 'o';
+                        return;
+                    }
+                }
+            }
+            
+            function pick_move_random(){
+                $min = 0;
+                $max = 8;
+                $random_number = mt_rand($min, $max);
+                for ($loc = 0; $loc < 9; $loc++) {
+                    if ($this->position[$random_number] == '-') {
+                        $this->position[$random_number] = 'o';
                         return;
                     }
                 }
