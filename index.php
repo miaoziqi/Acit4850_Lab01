@@ -61,21 +61,85 @@ and open the template in the editor.
         } else if (winner('o', $squares)) {
             echo 'I win.';
         } else {
-            echo 'No winner yet.';
+            echo 'No winner yet,but you are losing';
+        }
+        
+        echo '<br/>';
+        echo 'game class test';
+          echo '<br/>';
+        $squares = $position;
+        $game = new Game($squares);
+        if ($game->winner('x')){
+            echo 'You win.';
+        }else if($game -> winner('o')){
+            echo 'I win.';
+        }else {
+            echo 'No winner yet, but you are lose';
         }
         ?>
     </body>
 </html>
 <?php
+
 function winner($token, $position) {
-$won = false;
-if (($position[0] == $token) && ($position[1] == $token) && ($position[2] == $token)){
-$won = true;
-} else if (($position[3] == $token) && ($position[4] == $token) && ($position[5] == $token)){
-$won = true;
-} else if (($position[6] == $token) && ($position[7] == $token) && ($position[8] == $token)){
-$won = true;
+    /*
+      $won = false;
+      if (($position[0] == $token) && ($position[1] == $token) && ($position[2] == $token)) {
+      $won = true;
+      } else if (($position[3] == $token) && ($position[4] == $token) && ($position[5] == $token)) {
+      $won = true;
+      } else if (($position[6] == $token) && ($position[7] == $token) && ($position[8] == $token)) {
+      $won = true;
+      }
+     */
+
+    $countFalse = 0;
+    for ($row = 0; $row < 3; $row++) {
+        $result = true;
+        for ($col = 0; $col < 3; $col++) {
+            if ($position[3 * $row + $col] != $token) {
+                $result = false;
+                $countFalse++;
+            }
+            if ($result == true) {
+                return $result;
+            }
+        }
+    }
+    // return $won;
+    if ($countFalse != 3) {
+        //return true;
+    }
+    return $result;
 }
-return $won;
+
+class Game {
+
+    var $position;
+
+    function __construct($squares) {
+        $this->position = str_split($squares);
+    }
+
+    function winner($token) {
+        for ($row = 0; $row < 3; $row++) {
+            $result = true;
+            for ($col = 0; $col < 3; $col++) {
+                if ($this->position[3 * $row + $col] != $token) {
+                    $result = false;
+                    $countFalse++;
+                }
+                if ($result == true) {
+                    return $result;
+                }
+            }
+        }
+        // return $won;
+        if ($countFalse != 3) {
+            //return true;
+        }
+        return $result;
+    }
+
 }
 ?>
